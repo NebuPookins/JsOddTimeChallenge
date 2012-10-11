@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Odd Time Signature Challenge</title>
+<style type="text/css">
+body,input,button {
+	font-size: 0.5in;
+}
+
+#main {
+	display: none;
+}
+
+#main table {
+	width: 100%;
+}
+
+#main td {
+	text-align: center;
+	font-size: 3in;
+	border: solid 1px black;
+}
+
+#main #position span {
+	display: inline-block;
+	min-width: 1em;
+	text-align: center;
+}
+
+#setup h1 {
+	font-size: 100%;
+}
+</style>
+</head>
+<body>
+	<div id="setup">
+		Tempo: <input id="tempo" type="number" value="120" min="1" max="999"
+			autofocus="autofocus" step="1" required="required" /> qpm
+		<button>Start</button>
+		
+	</div>
+	<div id="main">
+		<table>
+			<col width="50%" align="center" />
+			<col width="50%" align="center" />
+			<tr>
+				<td id="curr">4/4</td>
+				<td id="next">16/16</td>
+			</tr>
+		</table>
+		<div id="position">O</div>
+	</div>
+	<audio id="click1">
+		<source src="Metronom Click 1.ogg"></source>
+		<source src="Metronom Click 1.mp3"></source>
+		<source src="Metronom Click 1.wav"></source>
+	</audio>
+	<audio id="click2">
+		<source src="Metronom Click 2.ogg"></source>
+		<source src="Metronom Click 2.mp3"></source>
+		<source src="Metronom Click 2.wav"></source>
+	</audio>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
