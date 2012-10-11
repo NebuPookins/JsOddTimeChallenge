@@ -1,4 +1,7 @@
 $(function() {
+	function assert(bool, msg) {
+		if (!bool) throw msg;
+	}
 	function TS(numer, denom) {
 		this.numer = numer;
 		this.denom = denom;
@@ -6,16 +9,6 @@ $(function() {
 	TS.prototype.toString = function() {
 		return this.numer + '/' + this.denom;
 	};
-	function randomTS() {
-		var numer = 4, denom = 4;
-		switch(Math.floor(Math.random() * 3)) {
-		case 0: denom = 4; break;
-		case 1: denom = 4; break;
-		case 2: denom = 8; break;
-		}
-		numer = Math.floor((Math.random() * denom * 3.5) + denom / 2);
-		return new TS(numer, denom);
-	}
 	var $setup = $('#setup');
 	var $tempo = $setup.find('#tempo');
 	var $main = $('#main');
@@ -25,6 +18,42 @@ $(function() {
 	var $position = $main.find('#position');
 	var $click1 = $('audio#click1');
 	var $click2 = $('audio#click2');
+	/**
+	 * A list of pairs of (denominator and a list of numerators), e.g.
+	 * [
+	 *   {denom: 4, numers: [2, 3, 4, 5, 6, 7]},
+	 *   {denom: 8, numers: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]}
+	 * ]
+	 */
+	var allowedTS = (function() {
+		var result = [];
+		$setup.find('li').each(function(index, elem) {
+			var $elem = $(elem);
+			var $enabled = $elem.find('input[type="checkbox"]');
+			if ($enabled.prop('checked')) {
+				var enablePrefix = "enable";
+				var enableId = $enabled[0].id;
+				assert(enableId.indexOf(enablePrefix) == 0, "id was " + enableId);
+				var denom = parseInt(enableId.substr(enablePrefix.length));
+				var $min = $elem.find('input#min'+denom);
+				var $max = $elem.find('input#max'+denom);
+				var min = Math.ceil($min.val());
+				var max = Math.floor($max.val());
+				var numers = [];
+				for (var i = min; i <= max; i++) {
+					numers.push(i);
+				}
+				result.push({denom: denom, numers: numers});
+			}
+		});
+		return result;
+	})();
+	function randomTS() {
+		var denomIndex = Math.floor(Math.random() * allowedTS.length);
+		var subObj = allowedTS[denomIndex];
+		var numerIndex = Math.floor(Math.random() * subObj.numers.length);
+		return new TS(subObj.numers[numerIndex], subObj.denom);
+	}
 	function tick(isAccent) {
 		if (isAccent) {
 			$click1[0].pause();

@@ -37,7 +37,21 @@ body,input,button {
 		Tempo: <input id="tempo" type="number" value="120" min="1" max="999"
 			autofocus="autofocus" step="1" required="required" /> qpm
 		<button>Start</button>
-		
+		<h1>Allowed Time Signatures:</h1>
+		<ul>
+			<li><input id="enable4" type="checkbox" checked="checked" />
+				From <input id="min4" type="number" value="2" min="1" max="99"
+				step="1" required="required" />/4 to <input id="max4" type="number"
+				value="16" min="1" max="99" step="1" required="required" />/4</li>
+			<li><input id="enable8" type="checkbox" checked="checked" />
+				From <input id="min8" type="number" value="4" min="1" max="99"
+				step="1" required="required" />/8 to <input id="max8" type="number"
+				value="24" min="1" max="99" step="1" required="required" />/8</li>
+			<li><input id="enable16" type="checkbox" /> From <input
+				id="min16" type="number" value="8" min="1" max="99" step="1"
+				required="required" />/16 to <input id="max16" type="number"
+				value="32" min="1" max="99" step="1" required="required" />/16</li>
+		</ul>
 	</div>
 	<div id="main">
 		<table>
